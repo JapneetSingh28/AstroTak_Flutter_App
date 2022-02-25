@@ -1,0 +1,67 @@
+name: astro_tak_flutter_app
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_bloc: ^8.0.1
+  hydrated_bloc: ^8.0.0
+  equatable: ^2.0.3
+  dio: ^4.0.4
+  cached_network_image: ^3.2.0
+  intl: ^0.17.0
+  flutter_sticky_header: ^0.6.0
+  sliver_tools: ^0.2.5
+  toggle_switch: ^1.4.0
+  fluttertoast: ^8.0.8
+  flutter_typeahead: ^3.2.4
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+  flutter_launcher_icons: ^0.9.2
+
+flutter_icons:
+  image_path_android: "assets/icons/icon.png"
+  image_path_ios: "assets/icons/icon.png"
+  remove_alpha_ios: true
+  android: true
+  ios: true
+# flutter pub pub run flutter_launcher_icons:main
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat Thin 250.ttf
+          weight: 200
+        - asset: assets/fonts/Montserrat Light 300.ttf
+          weight: 300
+        - asset: assets/fonts/Montserrat Regular 400.ttf
+          weight: 400
+        - asset: assets/fonts/Montserrat Medium 500.ttf
+          weight: 500
+        - asset: assets/fonts/Montserrat SemiBold 600.ttf
+          weight: 600
+        - asset: assets/fonts/Montserrat Bold 700.ttf
+          weight: 700
+        - asset: assets/fonts/Montserrat ExtraBold 800.ttf
+          weight: 800
+        - asset: assets/fonts/Montserrat Black 900.ttf
+          weight: 900
