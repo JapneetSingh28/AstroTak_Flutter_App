@@ -1,6 +1,6 @@
 # astro_tak_flutter_app
 
-A new Flutter project.
+This app is developed using Flutter sdk version-2.10.2.
 
 ## Getting Started
 
