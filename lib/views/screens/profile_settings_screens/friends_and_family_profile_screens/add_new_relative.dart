@@ -21,6 +21,7 @@ import '../../../widgets/textfields/pob_textfield.dart';
 class AddNewRelative extends StatefulWidget {
   final Function onBackPressed;
   final SingleRelativeData? relativeData;
+
   const AddNewRelative(
       {Key? key, required this.onBackPressed, this.relativeData})
       : super(key: key);
@@ -40,6 +41,7 @@ class _AddNewRelativeState extends State<AddNewRelative> {
 
   // ignore: prefer_typing_uninitialized_variables
   var selectedGender;
+
   // ignore: prefer_typing_uninitialized_variables
   var selectedRelation;
   final _formKey = GlobalKey<FormState>();
@@ -278,6 +280,7 @@ class _AddNewRelativeState extends State<AddNewRelative> {
                       onSuggestionTapped: (suggestion) {
                         selectedPlace = suggestion as PlaceSuggestionModel;
                         placeController.text = suggestion.placeName;
+                        setState(() {});
                       },
                       selectedPlace: selectedPlace,
                     ),
