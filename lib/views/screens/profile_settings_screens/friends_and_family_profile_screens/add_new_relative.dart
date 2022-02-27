@@ -229,53 +229,31 @@ class _AddNewRelativeState extends State<AddNewRelative> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const Text(
-                      'Name',
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    NameTextfield(
-                        onChanged: () => setState(() {}),
-                        textEditingController: nameController),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 15),
+                    const Text('Name'),
+                    const SizedBox(height: 10),
+                    NameTextField(textEditingController: nameController),
+                    const SizedBox(height: 10),
                     const Text('Date of Birth'),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     DOBTextFields(
-                        onChanged: () => setState(() {}),
                         dobDateController: dobDateController,
                         dobMonthController: dobMonthController,
                         dobYearController: dobYearController),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     const Text('Time of Birth'),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     TOBTextFields(
-                        onChanged: () => setState(() {}),
                         tobHourController: tobHourController,
                         tobMinsController: tobMinsController,
                         onAmPmChanged: (index) {
                           amPmIndex = index ?? 0;
                         },
                         amPmIndex: amPmIndex),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     const Text('Place of Birth'),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    POBTextfield(
+                    const SizedBox(height: 10),
+                    POBTextField(
                       placeController: placeController,
                       onSuggestionTapped: (suggestion) {
                         selectedPlace = suggestion as PlaceSuggestionModel;
@@ -284,9 +262,7 @@ class _AddNewRelativeState extends State<AddNewRelative> {
                       },
                       selectedPlace: selectedPlace,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Expanded(
@@ -300,9 +276,7 @@ class _AddNewRelativeState extends State<AddNewRelative> {
                                 });
                               }),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: RelationDropDown(
                               selectedRelation: selectedRelation,
@@ -319,9 +293,7 @@ class _AddNewRelativeState extends State<AddNewRelative> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Button(
                 height: 35,
                 width: 120,

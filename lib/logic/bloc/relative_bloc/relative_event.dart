@@ -35,3 +35,8 @@ class RelativeDeletionEvent extends RelativeEvent {
   @override
   List<Object?> get props => [deleteRelativeUUID];
 }
+
+class RelativeNoInternetEvent extends RelativeEvent {
+  @override
+  List<Object?> get props => [];
+}

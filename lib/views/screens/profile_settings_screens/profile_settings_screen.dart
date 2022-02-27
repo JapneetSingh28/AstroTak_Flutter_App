@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../logic/bloc/relative_bloc/relative_bloc.dart';
 import '../../../utilities/constants.dart';
 import '../../../utilities/text_styles.dart';
 import 'my_profile.dart';
@@ -16,14 +14,6 @@ class ProfileSettingsScreen extends StatefulWidget {
 }
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
-  @override
-  void initState() {
-    BlocProvider.of<RelativeBloc>(context).add(
-      RelativeFetchEvent(),
-    );
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -41,7 +31,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
           title: Image.asset(
             'assets/icons/icon.png',
             width: 55,
-            height: 55,
+            height: 50,
           ),
           actions: [
             Row(
@@ -53,7 +43,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                   child: OutlinedButton(
                     child: Text("Logout", style: logoutStyle),
                     onPressed: () {
-                      // print("it's pressed");
+                      // print("Logout pressed");
                     },
                     style: OutlinedButton.styleFrom(
                       backgroundColor: Colors.white,
@@ -64,9 +54,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 15,
-                )
+                const SizedBox(width: 15)
               ],
             )
           ],

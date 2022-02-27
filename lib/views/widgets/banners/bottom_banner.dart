@@ -4,12 +4,12 @@ import '../../../utilities/constants.dart';
 import '../../../utilities/text_styles.dart';
 
 class BottomBanner extends StatelessWidget {
-  final String tagName;
+  final String categoryName;
   final int price;
   final Function onPressed;
   const BottomBanner(
       {Key? key,
-      required this.tagName,
+      required this.categoryName,
       required this.price,
       required this.onPressed})
       : super(key: key);
@@ -27,7 +27,7 @@ class BottomBanner extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('₹ $price (1 Question on $tagName )', style: bannerStyle2),
+            Text('₹ $price (1 Question on $categoryName )', style: bannerStyle2),
             SizedBox(
               height: 30,
               child: OutlinedButton(

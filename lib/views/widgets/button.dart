@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../utilities/constants.dart';
 
-
 class Button extends StatelessWidget {
   const Button({
     Key? key,
@@ -16,6 +15,7 @@ class Button extends StatelessWidget {
   final Function onPress;
   final double height;
   final double width;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

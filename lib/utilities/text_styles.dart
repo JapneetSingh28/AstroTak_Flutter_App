@@ -46,32 +46,39 @@ TextStyle logoutStyle = TextStyle(
 
 TextStyle tabSelectedStyle = TextStyle(
   fontSize: 16.0,
+  fontFamily: 'Montserrat',
   color: primaryColor,
+  fontWeight: FontWeight.w400,
 );
 
 TextStyle tabUnSelectedStyle = const TextStyle(
   fontSize: 16.0,
+  fontFamily: 'Montserrat',
   color: Colors.black,
   fontWeight: FontWeight.w300,
 );
 
 TextStyle tabSelectedStyle2 = const TextStyle(
-  fontSize: 14.0,
+  fontSize: 12.0,
+  fontWeight: FontWeight.w400,
   color: Colors.white,
+  fontFamily: 'Montserrat',
 );
 
 TextStyle tabUnSelectedStyle2 = const TextStyle(
-  fontSize: 14.0,
+  fontSize: 12.0,
+  fontFamily: 'Montserrat',
   fontWeight: FontWeight.w300,
   color: Colors.black,
 );
 
-TextStyle tableHeadling = TextStyle(
+TextStyle tableHeading = TextStyle(
+  fontWeight: FontWeight.w300,
   fontSize: 13.0,
   color: bannerColor,
 );
 
-TextStyle tableDataHeadling = const TextStyle(
+TextStyle tableDataHeading = const TextStyle(
   fontSize: 11.0,
   color: Colors.black,
 );

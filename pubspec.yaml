@@ -14,17 +14,13 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.0.1
-  hydrated_bloc: ^8.0.0
   equatable: ^2.0.3
   dio: ^4.0.4
-  cached_network_image: ^3.2.0
   intl: ^0.17.0
-  flutter_sticky_header: ^0.6.0
-  sliver_tools: ^0.2.5
   toggle_switch: ^1.4.0
   fluttertoast: ^8.0.8
   flutter_typeahead: ^3.2.4
-
+  connectivity_plus: ^2.2.1
 
 dev_dependencies:
   flutter_test:

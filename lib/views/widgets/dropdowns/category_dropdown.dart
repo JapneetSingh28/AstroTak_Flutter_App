@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../utilities/constants.dart';
 
-class TagDropDown extends StatelessWidget {
+class CategoryDropDown extends StatelessWidget {
   final String value;
   final Function onChanged;
   final List<String> itemsList;
-  const TagDropDown(
+
+  const CategoryDropDown(
       {Key? key,
       required this.value,
       required this.onChanged,
@@ -32,6 +33,8 @@ class TagDropDown extends StatelessWidget {
       child: DropdownButton<String>(
         isExpanded: true,
         underline: const SizedBox(),
+        dropdownColor: Colors.white,
+        focusColor: Colors.white,
         value: value,
         items: itemsList.map((String value) {
           return DropdownMenuItem<String>(

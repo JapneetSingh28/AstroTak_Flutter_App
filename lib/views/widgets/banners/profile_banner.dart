@@ -13,7 +13,7 @@ class ProfileBanner extends StatelessWidget {
         color: bannerLightColor,
         borderRadius: BorderRadius.circular(5.0),
       ),
-      height: 45,
+      height: 40,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
@@ -22,9 +22,7 @@ class ProfileBanner extends StatelessWidget {
               Icons.account_balance_wallet_rounded,
               color: bannerColor,
             ),
-            const SizedBox(
-              width: 5.0,
-            ),
+            const SizedBox(width: 5.0),
             Text(
               'Wallet Balance : ₹ 0',
               style: TextStyle(
@@ -32,9 +30,7 @@ class ProfileBanner extends StatelessWidget {
                 color: bannerColor,
               ),
             ),
-            const SizedBox(
-              width: 5.0,
-            ),
+            const SizedBox(width: 5.0),
             SizedBox(
               height: 25,
               child: OutlinedButton(

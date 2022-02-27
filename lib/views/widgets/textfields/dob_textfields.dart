@@ -4,14 +4,12 @@ import '../../../utilities/constants.dart';
 import 'package:flutter/services.dart';
 
 class DOBTextFields extends StatelessWidget {
-  final Function onChanged;
   final TextEditingController dobDateController;
   final TextEditingController dobMonthController;
   final TextEditingController dobYearController;
 
   const DOBTextFields(
       {Key? key,
-      required this.onChanged,
       required this.dobDateController,
       required this.dobMonthController,
       required this.dobYearController})
@@ -29,26 +27,23 @@ class DOBTextFields extends StatelessWidget {
                 contentPadding: const EdgeInsets.only(left: 10),
                 enabledBorder: outlineInputBorder,
                 border: outlineInputBorder,
-                errorText: validateInt(
-                  maxValue: 31,
-                  minValue: 0,
-                  errorMssg: 'Invalid DD',
-                  value: dobDateController.text,
-                ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: primaryColor),
                 ),
                 hintText: 'DD'),
-            onChanged: (_) => onChanged(),
             maxLength: 2,
-            inputFormatters: [LengthLimitingTextInputFormatter(2)],
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.number,
             cursorColor: primaryColor,
             controller: dobDateController,
             validator: (value) {
               if (value!.isEmpty ||
-                  int.parse(value) > 31 ||
-                  int.parse(value) <= 0) {
+                  value is int ||
+                  (int.tryParse(value) ?? 0) > 31 ||
+                  (int.tryParse(value) ?? 0) <= 0) {
                 return 'Invalid DD';
               }
               return null;
@@ -58,35 +53,30 @@ class DOBTextFields extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(
-          width: 10,
-        ),
+        const SizedBox(width: 10),
         Expanded(
           child: TextFormField(
             decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(left: 10),
                 enabledBorder: outlineInputBorder,
                 border: outlineInputBorder,
-                errorText: validateInt(
-                  maxValue: 12,
-                  minValue: 0,
-                  errorMssg: 'Invalid MM',
-                  value: dobMonthController.text,
-                ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: primaryColor),
                 ),
                 hintText: 'MM'),
-            onChanged: (_) => onChanged(),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             maxLength: 2,
-            inputFormatters: [LengthLimitingTextInputFormatter(2)],
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
             keyboardType: TextInputType.number,
             cursorColor: primaryColor,
             controller: dobMonthController,
             validator: (value) {
               if (value!.isEmpty ||
-                  int.parse(value) > 12 ||
-                  int.parse(value) <= 0) {
+                  value is int ||
+                  (int.tryParse(value) ?? 0) > 12 ||
+                  (int.tryParse(value) ?? 0) <= 0) {
                 return 'Invalid MM';
               }
               return null;
@@ -96,36 +86,31 @@ class DOBTextFields extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(
-          width: 10,
-        ),
+        const SizedBox(width: 10),
         Expanded(
           child: TextFormField(
             decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(left: 10),
                 enabledBorder: outlineInputBorder,
                 border: outlineInputBorder,
-                errorText: validateInt(
-                  maxValue: DateTime.now().year,
-                  minValue: 1899,
-                  errorMssg: 'Invalid YYYY',
-                  value: dobYearController.text,
-                ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: primaryColor),
                 ),
                 hintText: 'YYYY'),
-            onChanged: (_) => onChanged(),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             maxLength: 4,
-            inputFormatters: [LengthLimitingTextInputFormatter(4)],
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
             keyboardType: TextInputType.number,
             cursorColor: primaryColor,
             controller: dobYearController,
             validator: (value) {
               if (value!.isEmpty ||
-                  int.parse(value) > DateTime.now().year ||
-                  int.parse(value) <= 0 ||
-                  int.parse(value) < 1900) {
+                  value is int ||
+                  (int.tryParse(value) ?? 0) > DateTime.now().year ||
+                  (int.tryParse(value) ?? 0) <= 0 ||
+                  (int.tryParse(value) ?? 0) < 1900) {
                 return 'Invalid YYYY';
               }
               return null;

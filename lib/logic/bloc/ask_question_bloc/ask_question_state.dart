@@ -19,11 +19,16 @@ class AskQuestionErrorState extends AskQuestionState {
 }
 
 class AskQuestionLoadedState extends AskQuestionState {
-  final AskQuestionModel selectedTagData;
+  final AskQuestionModel selectedCategoryData;
   final List<AskQuestionModel> allAskQuestionsData;
 
-  const AskQuestionLoadedState(this.selectedTagData, this.allAskQuestionsData);
+  const AskQuestionLoadedState(this.selectedCategoryData, this.allAskQuestionsData);
 
   @override
-  List<Object?> get props => [selectedTagData, allAskQuestionsData];
+  List<Object?> get props => [selectedCategoryData, allAskQuestionsData];
+}
+
+class AskQuestionNoInternetState extends AskQuestionState {
+  @override
+  List<Object?> get props => [];
 }

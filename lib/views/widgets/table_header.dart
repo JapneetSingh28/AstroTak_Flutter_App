@@ -10,34 +10,44 @@ class TableHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const SizedBox(
-          width: 12,
-        ),
-        Expanded(
+        const SizedBox(width: 5),
+        Flexible(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Name',
-                style: tableHeadling,
+              Expanded(
+                child: Text(
+                  'Name',
+                  style: tableHeading,
+                  textAlign: TextAlign.center,
+                ),
               ),
-              Text(
-                '  DOB  ',
-                style: tableHeadling,
+              Expanded(
+                child: Text(
+                  'DOB',
+                  style: tableHeading,
+                  textAlign: TextAlign.center,
+                ),
               ),
-              Text(
-                'TOB',
-                style: tableHeadling,
+              Expanded(
+                child: Text(
+                  'TOB',
+                  style: tableHeading,
+                  textAlign: TextAlign.center,
+                ),
               ),
-              Text(
-                'Relation',
-                style: tableHeadling,
+              Expanded(
+                child: Text(
+                  'Relation',
+                  style: tableHeading,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
         ),
         SizedBox(
-          width: SizeConfig.screenWidth * 0.28,
+          width: SizeConfig.screenWidth * 0.27,
         ),
       ],
     );

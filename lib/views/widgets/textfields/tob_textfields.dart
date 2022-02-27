@@ -4,14 +4,13 @@ import 'package:flutter/services.dart';
 import '../../../utilities/constants.dart';
 
 class TOBTextFields extends StatelessWidget {
-  final Function onChanged;
   final TextEditingController tobHourController;
   final TextEditingController tobMinsController;
   final Function onAmPmChanged;
   final int amPmIndex;
+
   const TOBTextFields(
       {Key? key,
-      required this.onChanged,
       required this.tobHourController,
       required this.tobMinsController,
       required this.onAmPmChanged,
@@ -29,27 +28,24 @@ class TOBTextFields extends StatelessWidget {
             decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(left: 10),
                 enabledBorder: outlineInputBorder,
-                errorText: validateInt(
-                  maxValue: 12,
-                  minValue: 0,
-                  errorMssg: 'Invalid HH',
-                  value: tobHourController.text,
-                ),
                 border: outlineInputBorder,
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: primaryColor),
                 ),
                 hintText: 'HH'),
-            onChanged: (_) => onChanged(),
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             maxLength: 2,
-            inputFormatters: [LengthLimitingTextInputFormatter(2)],
             keyboardType: TextInputType.number,
             cursorColor: primaryColor,
             controller: tobHourController,
             validator: (value) {
               if (value!.isEmpty ||
-                  int.parse(value) > 12 ||
-                  int.parse(value) <= 0) {
+                  value is int ||
+                  (int.tryParse(value) ?? 0) > 12 ||
+                  (int.tryParse(value) ?? 0) <= 0) {
                 return 'Invalid HH';
               }
               return null;
@@ -59,33 +55,27 @@ class TOBTextFields extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(
-          width: 10,
-        ),
+        const SizedBox(width: 10),
         Expanded(
           child: TextFormField(
             decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(left: 10),
                 enabledBorder: outlineInputBorder,
                 border: outlineInputBorder,
-                errorText: validateInt(
-                  maxValue: 59,
-                  minValue: -1,
-                  errorMssg: 'Invalid MM',
-                  value: tobMinsController.text,
-                ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: primaryColor),
                 ),
                 hintText: 'MM'),
             maxLength: 2,
-            inputFormatters: [LengthLimitingTextInputFormatter(2)],
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.number,
-            onChanged: (_) => onChanged(),
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
             cursorColor: primaryColor,
             controller: tobMinsController,
             validator: (value) {
-              if (value!.isEmpty || int.parse(value) > 59) {
+              if (value!.isEmpty || (int.tryParse(value) ?? 0) > 59) {
                 return 'Invalid MM';
               }
               return null;
@@ -95,9 +85,7 @@ class TOBTextFields extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(
-          width: 10,
-        ),
+        const SizedBox(width: 10),
         ToggleSwitch(
           minWidth: 50.0,
           minHeight: 45,

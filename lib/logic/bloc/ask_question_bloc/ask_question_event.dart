@@ -9,13 +9,18 @@ class AskQuestionFetchEvent extends AskQuestionEvent {
   List<Object?> get props => [];
 }
 
-class AskQuestionFilterEvent extends AskQuestionEvent {
-  final int tagIndex;
+class AskQuestionChangeCategoryEvent extends AskQuestionEvent {
+  final int categoryIndex;
   final List<AskQuestionModel> allAskQuestionsData;
 
-  const AskQuestionFilterEvent(
-      {required this.tagIndex, required this.allAskQuestionsData});
+  const AskQuestionChangeCategoryEvent(
+      {required this.categoryIndex, required this.allAskQuestionsData});
 
   @override
-  List<Object?> get props => [tagIndex, allAskQuestionsData];
+  List<Object?> get props => [categoryIndex, allAskQuestionsData];
+}
+
+class AskQuestionNoInternetEvent extends AskQuestionEvent {
+  @override
+  List<Object?> get props => [];
 }

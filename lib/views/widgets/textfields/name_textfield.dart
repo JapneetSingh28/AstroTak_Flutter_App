@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../utilities/constants.dart';
 
-class NameTextfield extends StatelessWidget {
-  final Function onChanged;
+class NameTextField extends StatelessWidget {
   final TextEditingController textEditingController;
-  const NameTextfield(
-      {Key? key, required this.onChanged, required this.textEditingController})
+
+  const NameTextField({Key? key, required this.textEditingController})
       : super(key: key);
 
   @override
@@ -16,20 +15,15 @@ class NameTextfield extends StatelessWidget {
         contentPadding: const EdgeInsets.only(left: 10),
         enabledBorder: outlineInputBorder,
         border: outlineInputBorder,
-        errorText: validateString(
-          errorMssg: 'Enter valid Name',
-          value: textEditingController.text,
-          length: 1,
-        ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: primaryColor),
         ),
       ),
-      onChanged: (_) => onChanged(),
       cursorColor: primaryColor,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: textEditingController,
       validator: (value) {
-        if (value!.isEmpty) {
+        if (value!.trim().isEmpty) {
           return 'Enter valid Name';
         }
         return null;

@@ -1,31 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../utilities/constants.dart';
 import '../../utilities/text_styles.dart';
 
-class QnABox extends StatelessWidget {
-  const QnABox({Key? key}) : super(key: key);
+class QnABoxView extends StatelessWidget {
+  const QnABoxView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MultiSliver(
-      children: [
-        SliverToBoxAdapter(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                  'Seeking accurate answers to difficult questions troubling your mind? Ask credible astrologers to know what future has in store for you.'),
-            ],
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Container(
+    return SliverToBoxAdapter(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children:  [
+         const SizedBox(height: 10),
+          const Text(
+              'Seeking accurate answers to difficult questions troubling your mind? Ask credible astrologers to know what future has in store for you.'),
+          Container(
             decoration: BoxDecoration(
               color: lightPrimaryColor,
             ),
@@ -49,9 +40,9 @@ class QnABox extends StatelessWidget {
                     style: notesStyle),
               ],
             ),
-          ),
-        ),
-      ],
+          )
+        ],
+      ),
     );
   }
 }

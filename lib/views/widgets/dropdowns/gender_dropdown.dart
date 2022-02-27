@@ -7,6 +7,7 @@ class GenderDropDown extends StatelessWidget {
   final bool checkDropdown;
   final List<String> genderList;
   final Function onChanged;
+
   const GenderDropDown(
       {Key? key,
       required this.selectedGender,
@@ -22,9 +23,7 @@ class GenderDropDown extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const Text('Gender'),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
@@ -41,7 +40,6 @@ class GenderDropDown extends StatelessWidget {
             items: genderList.map((valueItem) {
               return DropdownMenuItem(
                 value: valueItem,
-                
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(

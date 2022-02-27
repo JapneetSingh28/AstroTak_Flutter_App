@@ -1,17 +1,19 @@
+import 'package:astro_tak_flutter_app/views/widgets/circular_loading_view.dart';
+import 'package:astro_tak_flutter_app/views/widgets/no_internet_view.dart';
+
+import '../widgets/snack_bar.dart';
 import '../widgets/tiles/question_tile.dart';
 import '../widgets/textfields/sticky_textfield.dart';
-import '../widgets/dropdowns/tag_dropdown.dart';
+import '../widgets/dropdowns/category_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../logic/bloc/ask_question_bloc/ask_question_bloc.dart';
 import '../../utilities/constants.dart';
 import '../../utilities/text_styles.dart';
 import '../widgets/banners/bottom_banner.dart';
-import '../widgets/qna_box.dart';
+import '../widgets/qna_box_view.dart';
 import '../widgets/banners/top_banner.dart';
 
 class AskQuestionScreen extends StatefulWidget {
@@ -24,17 +26,30 @@ class AskQuestionScreen extends StatefulWidget {
 }
 
 class _AskQuestionScreenState extends State<AskQuestionScreen> {
-  String sortValue = '';
+  String selectedCategory = '';
+  bool previousNoInternet = false;
   final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<AskQuestionBloc, AskQuestionState>(
-          builder: (context, state) {
+      body: BlocConsumer<AskQuestionBloc, AskQuestionState>(
+          listener: (BuildContext context, Object? state) {
+        if (state is AskQuestionNoInternetState) {
+          previousNoInternet = true;
+          ShowSnackBar().showSnackBar(context, 'Please connect to Internet.',
+              backgroundColor: Colors.red);
+        } else {
+          if (previousNoInternet) {
+            previousNoInternet = false;
+            ShowSnackBar().showSnackBar(context, 'Back Online.',
+                backgroundColor: Colors.green);
+          }
+        }
+      }, builder: (context, state) {
         if (state is AskQuestionLoadedState) {
-          if (sortValue == '') {
-            sortValue = state.selectedTagData.name;
+          if (selectedCategory == '') {
+            selectedCategory = state.selectedCategoryData.name;
           }
           return Column(
             children: [
@@ -61,21 +76,23 @@ class _AskQuestionScreenState extends State<AskQuestionScreen> {
                               const SizedBox(height: 10),
                               Text('Choose Category', style: heading),
                               const SizedBox(height: 5),
-                              TagDropDown(
-                                  value: sortValue,
+                              CategoryDropDown(
+                                  value: selectedCategory,
                                   itemsList: List<String>.from(state
                                       .allAskQuestionsData
                                       .map((tag) => tag.name)),
                                   onChanged: (value) {
                                     setState(() {
-                                      sortValue = value ?? '';
+                                      selectedCategory = value ?? '';
                                     });
                                     BlocProvider.of<AskQuestionBloc>(context)
-                                        .add(AskQuestionFilterEvent(
-                                            tagIndex: List<String>.from(state
-                                                    .allAskQuestionsData
-                                                    .map((tag) => tag.name))
-                                                .indexOf(sortValue),
+                                        .add(AskQuestionChangeCategoryEvent(
+                                            categoryIndex: List<String>.from(
+                                                    state
+                                                        .allAskQuestionsData
+                                                        .map((category) =>
+                                                            category.name))
+                                                .indexOf(selectedCategory),
                                             allAskQuestionsData:
                                                 state.allAskQuestionsData));
                                     _textController.clear();
@@ -83,45 +100,47 @@ class _AskQuestionScreenState extends State<AskQuestionScreen> {
                             ],
                           ),
                         ),
-                        SliverStickyHeader(
-                          header: StickyTextField(
+                        SliverAppBar(
+                          pinned: true,
+                          backgroundColor: Colors.white,
+                          elevation: 0.0,
+                          floating: false,
+                          bottom: const PreferredSize(
+                            preferredSize: Size.fromHeight(100.0),
+                            child: Text(''),
+                          ),
+                          flexibleSpace: StickyTextField(
                               textEditingController: _textController),
-                          sliver: MultiSliver(
-                            children: [
-                              if (state
-                                  .selectedTagData.questionsList.isNotEmpty)
-                                SliverToBoxAdapter(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Ideas what to Ask (Select Any)',
-                                          style: heading)
-                                    ],
-                                  ),
-                                ),
-                              SliverList(
-                                delegate: SliverChildBuilderDelegate(
-                                  (context, index) => GestureDetector(
-                                    onTap: () {
-                                      _textController.text = state
-                                          .selectedTagData.questionsList[index];
-                                      FocusScope.of(context)
-                                          .requestFocus(FocusNode());
-                                    },
-                                    child: QuestionTile(
-                                        question: state.selectedTagData
-                                            .questionsList[index]),
-                                  ),
-                                  childCount: state
-                                      .selectedTagData.questionsList.length,
-                                ),
-                              ),
-                              const QnABox(),
-                            ],
+                        ),
+                        if (state.selectedCategoryData.questionsList.isNotEmpty)
+                          SliverToBoxAdapter(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Ideas what to Ask (Select Any)',
+                                    style: heading)
+                              ],
+                            ),
+                          ),
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) => GestureDetector(
+                              onTap: () {
+                                _textController.text = state
+                                    .selectedCategoryData.questionsList[index];
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                              },
+                              child: QuestionTile(
+                                  question: state.selectedCategoryData
+                                      .questionsList[index]),
+                            ),
+                            childCount:
+                                state.selectedCategoryData.questionsList.length,
                           ),
                         ),
+                        const QnABoxView(),
                       ],
                     ),
                   ),
@@ -133,10 +152,10 @@ class _AskQuestionScreenState extends State<AskQuestionScreen> {
                 ),
               ),
               BottomBanner(
-                tagName: state.selectedTagData.name,
-                price: state.selectedTagData.price.toInt(),
+                categoryName: state.selectedCategoryData.name,
+                price: state.selectedCategoryData.price.toInt(),
                 onPressed: () {
-                  if (_textController.text.isEmpty) {
+                  if (_textController.text.trim().isEmpty) {
                     Fluttertoast.showToast(
                         msg: "First type your question",
                         toastLength: Toast.LENGTH_SHORT,
@@ -144,7 +163,7 @@ class _AskQuestionScreenState extends State<AskQuestionScreen> {
                         backgroundColor: Colors.black.withOpacity(0.5),
                         textColor: Colors.white,
                         fontSize: 15.0);
-                  } else if (_textController.text.length < 25) {
+                  } else if (_textController.text.trim().length < 25) {
                     Fluttertoast.showToast(
                         msg: "Question length should be greater than 25",
                         toastLength: Toast.LENGTH_SHORT,
@@ -158,22 +177,14 @@ class _AskQuestionScreenState extends State<AskQuestionScreen> {
             ],
           );
         } else if (state is AskQuestionLoadingState) {
-          return Center(
-            child: CircularProgressIndicator(
-              color: primaryColor,
-              strokeWidth: 1.0,
-            ),
-          );
+          return const CircularLoading();
         } else if (state is AskQuestionErrorState) {
           String error = state.errorMessage;
           return Center(child: Text(error));
+        } else if (state is AskQuestionNoInternetState) {
+          return const NoInternetView();
         } else {
-          return Center(
-            child: CircularProgressIndicator(
-              color: primaryColor2,
-              strokeWidth: 1.0,
-            ),
-          );
+          return const CircularLoading();
         }
       }),
     );

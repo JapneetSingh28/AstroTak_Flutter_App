@@ -68,7 +68,7 @@ class SingleRelativeData {
   String relation;
   int relationId;
   String firstName;
-  dynamic middleName;
+  String middleName;
   String lastName;
   String fullName;
   String gender;
@@ -77,14 +77,14 @@ class SingleRelativeData {
   BirthPlace birthPlace;
 
   factory SingleRelativeData.fromJson(Map<String, dynamic> json) => SingleRelativeData(
-        uuid: json["uuid"],
-        relation: json["relation"],
-        relationId: json["relationId"],
-        firstName: json["firstName"],
-        middleName: json["middleName"],
-        lastName: json["lastName"],
-        fullName: json["fullName"],
-        gender: json["gender"],
+        uuid: json["uuid"]??'',
+        relation: json["relation"]??'',
+        relationId: json["relationId"]??0,
+        firstName: json["firstName"]??'',
+        middleName: json["middleName"]??'',
+        lastName: json["lastName"]??'',
+        fullName: json["fullName"]??'',
+        gender: json["gender"]??'',
         dateAndTimeOfBirth: DateTime.parse(json["dateAndTimeOfBirth"]),
         birthDetails: BirthDetails.fromJson(json["birthDetails"]),
         birthPlace: BirthPlace.fromJson(json["birthPlace"]),

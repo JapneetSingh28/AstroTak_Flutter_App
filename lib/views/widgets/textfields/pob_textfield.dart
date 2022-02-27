@@ -6,12 +6,12 @@ import '../../../data/services/places_suggestions.dart';
 import '../../../utilities/constants.dart';
 import '../../../utilities/text_styles.dart';
 
-class POBTextfield extends StatelessWidget {
+class POBTextField extends StatelessWidget {
   final TextEditingController placeController;
   final Function onSuggestionTapped;
   final PlaceSuggestionModel? selectedPlace;
 
-  const POBTextfield(
+  const POBTextField(
       {Key? key,
       required this.placeController,
       required this.onSuggestionTapped,
@@ -39,8 +39,10 @@ class POBTextfield extends StatelessWidget {
         return suggestionsBox;
       },
       onSuggestionSelected: (suggestion) => onSuggestionTapped(suggestion),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (selectedPlace?.placeName==null) {
+        if (selectedPlace?.placeName == null ||
+            selectedPlace?.placeName != placeController.text) {
           return 'Please select a city';
         }
         return null;

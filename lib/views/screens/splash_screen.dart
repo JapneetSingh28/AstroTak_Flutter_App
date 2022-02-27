@@ -13,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  double quoteOpacity = 0.0;
+  double imageOpacity = 0.0;
   @override
   void initState() {
     super.initState();
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   loadNextScreen() async {
     Future.delayed(const Duration(milliseconds: 500), () {
-      quoteOpacity = 1.0;
+      imageOpacity = 1.0;
       if (mounted) setState(() {});
     });
 
@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: AnimatedOpacity(
           duration: const Duration(milliseconds: 800),
-          opacity: quoteOpacity,
+          opacity: imageOpacity,
           child: Image.asset(
             'assets/icons/icon.png',
             height: 100,

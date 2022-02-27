@@ -4,6 +4,7 @@ import '../../../utilities/constants.dart';
 
 class QuestionTile extends StatelessWidget {
   final String question;
+
   const QuestionTile({Key? key, required this.question}) : super(key: key);
 
   @override
@@ -17,9 +18,7 @@ class QuestionTile extends StatelessWidget {
             Row(
               children: [
                 Image.asset('assets/icons/question.png', height: 35, width: 30),
-                const SizedBox(
-                  width: 5.0,
-                ),
+                const SizedBox(width: 5.0),
                 Flexible(
                   child: Text(
                     question,

@@ -1,23 +1,39 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../data/models/relative_model.dart';
+import '../../../data/services/connectivity_service.dart';
 import '../../../data/services/relative_service.dart';
 
 part 'relative_event.dart';
+
 part 'relative_state.dart';
 
 class RelativeBloc extends Bloc<RelativeEvent, RelativeState> {
   final RelativeService relativeService;
+  final ConnectivityService connectivityService;
 
-  RelativeBloc({required this.relativeService})
-      : super(RelativeLoadingState()) {
+  RelativeBloc({
+    required this.relativeService,
+    required this.connectivityService,
+  }) : super(RelativeLoadingState()) {
+    connectivityService.connectivityStream.stream.listen((event) async {
+      if (event == ConnectivityResult.none) {
+        add(RelativeNoInternetEvent());
+      } else {
+        add(RelativeFetchEvent());
+      }
+    });
     on<RelativeFetchEvent>(_onRelativeFetchEvent);
     on<RelativeUpdateEvent>(_onRelativeUpdateEvent);
     on<RelativeAddEvent>(_onRelativeAddEvent);
     on<RelativeDeletionEvent>(_onRelativeDeletionEvent);
+    on<RelativeNoInternetEvent>(_onRelativeNoInternetEvent);
   }
 
   Future<void> _onRelativeFetchEvent(
@@ -66,7 +82,6 @@ class RelativeBloc extends Bloc<RelativeEvent, RelativeState> {
 
   Future<void> _onRelativeUpdateEvent(
       RelativeUpdateEvent event, Emitter<RelativeState> emit) async {
-
     emit(RelativeLoadingState());
     final updateRelative = await relativeService.updateRelativeProfile(
         uuid: event.updateRelativeData['uuid'],
@@ -117,5 +132,10 @@ class RelativeBloc extends Bloc<RelativeEvent, RelativeState> {
           fontSize: 15.0);
     }
     add(RelativeFetchEvent());
+  }
+
+  Future<void> _onRelativeNoInternetEvent(
+      RelativeNoInternetEvent event, Emitter<RelativeState> emit) async {
+    emit(RelativeNoInternetState());
   }
 }

@@ -7,6 +7,7 @@ class RelationDropDown extends StatelessWidget {
   final bool checkDropdown;
   final List<String> relationList;
   final Function onChanged;
+
   const RelationDropDown(
       {Key? key,
       required this.selectedRelation,
@@ -22,9 +23,7 @@ class RelationDropDown extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const Text('Relation'),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),

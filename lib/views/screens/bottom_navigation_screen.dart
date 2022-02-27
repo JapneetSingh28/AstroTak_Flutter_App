@@ -1,9 +1,7 @@
 import 'profile_settings_screens/profile_settings_screen.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../logic/bloc/ask_question_bloc/ask_question_bloc.dart';
 import '../../utilities/constants.dart';
 import 'ask_question_screen.dart';
 
@@ -18,14 +16,6 @@ class BottomNavigationScreen extends StatefulWidget {
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   int selectedIndex = 0;
-
-  @override
-  void initState() {
-    BlocProvider.of<AskQuestionBloc>(context).add(
-      AskQuestionFetchEvent(),
-    );
-    super.initState();
-  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -44,19 +34,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   List<Widget> _buildScreens() {
     return [
-      const Center(
-        child: Text('Home'),
-      ),
-      const Center(
-        child: Text('Talk'),
-      ),
+      const Center(child: Text('Home')),
+      const Center(child: Text('Talk')),
       const AskQuestionScreen(),
-      const Center(
-        child: Text('Reports'),
-      ),
-      const Center(
-        child: Text('Chat'),
-      ),
+      const Center(child: Text('Reports')),
+      const Center(child: Text('Chat')),
     ];
   }
 
@@ -76,13 +58,17 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         ),
         actions: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, ProfileSettingsScreen.id),
-            child:
-                Image.asset('assets/icons/profile.png', height: 30, width: 30),
+            onTap: () => Navigator.pushNamed(
+              context,
+              ProfileSettingsScreen.id,
+            ),
+            child: Image.asset(
+              'assets/icons/profile.png',
+              height: 30,
+              width: 30,
+            ),
           ),
-          const SizedBox(
-            width: 10,
-          ),
+          const SizedBox(width: 10),
         ],
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -99,8 +85,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         showSelectedLabels: true,
-        selectedFontSize: 11,
-        unselectedFontSize: 11,
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: iconImage(assetName: 'home', index: 0),

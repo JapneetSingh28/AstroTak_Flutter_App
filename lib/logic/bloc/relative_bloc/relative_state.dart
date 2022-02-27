@@ -26,3 +26,8 @@ class RelativeLoadedState extends RelativeState {
   @override
   List<Object?> get props => [allRelativesData];
 }
+
+class RelativeNoInternetState extends RelativeState {
+  @override
+  List<Object> get props => [];
+}
