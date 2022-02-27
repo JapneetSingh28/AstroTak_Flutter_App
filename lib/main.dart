@@ -1,4 +1,5 @@
 import 'package:astro_tak_flutter_app/data/services/connectivity_service.dart';
+import 'package:flutter/services.dart';
 
 import 'utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,9 @@ import 'views/screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(
     MyApp(connectivityService: ConnectivityService()),
   );
